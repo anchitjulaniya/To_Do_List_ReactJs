@@ -12,7 +12,7 @@ const Sidebar = ({Toggle}) => {
   const [open, setOpen] = useState(true);
   
   const Menus = [
-    { title: "Add Task", icons: <CiCirclePlus />, color: "#DC4A3E", onClick:Toggle },
+    { title: "Add Task", icons: <CiCirclePlus />, color: "#DC4A3E", onClick : Toggle },
     { title: "Search", icons: <CiSearch /> },
     { title: "Inbox", icons: <VscInbox /> },
     { title: "Upcoming", icons: <CiCalendar /> },
@@ -79,7 +79,7 @@ const Sidebar = ({Toggle}) => {
         </ul>
       </div>
       <div className="h-screen flex-1 p-7">
-        <h1 className="text-2xl font-semibold ">Todo's go here</h1>
+        <h1 className="text-2xl font-semibold ">To-do's go here</h1>
       </div>
     </div>
   );
