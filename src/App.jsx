@@ -3,6 +3,7 @@ function App() {
   const addTask = ()=>{
     console.log("add task");
     console.log("showModal");
+    console.log("hello")
   }
     const [showModal, setModal] = useState(false);
 
