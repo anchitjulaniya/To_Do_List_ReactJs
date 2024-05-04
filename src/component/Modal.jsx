@@ -29,7 +29,7 @@ const Modal = ({showModal, toggleModal}) => {
 
         <div className='flex justify-between px-10'>
             <button className='px-4 border border-black rounded-md' onClick={toggleModal}>Cancel</button>
-            <button className='px-4 border border-black rounded-md' onClick={addTask}>Create</button>
+            <button className='px-4 border border-black rounded-md' >Create</button>
         </div>
         
 
