@@ -45,6 +45,12 @@ function App() {
   },[taskList])
  
 
+  const handleDelete = (index) => {
+    let filteredArr = taskList.filter((item ,idx) => {
+      return  idx !== index
+    })
+    setTaskList(filteredArr)
+  }
   
 
   const toggleModal = () => {
@@ -52,7 +58,7 @@ function App() {
   };
 
   return (
-    <div className="flex ">
+    <div className="flex">
       <Sidebar Toggle={createTask} /> {/* Pass addTask function instead of toggleModal */}
       <div className="p-10">
         <Modal showModal={showModal} toggleModal={toggleModal} createTask = {createTask} taskInputValue={taskInputValue} labelInputValue={labelInputValue} labelValue={labelValue} taskValue={taskValue}/>
@@ -62,14 +68,18 @@ function App() {
         >
           New task
         </button>
-      </div>
 
-      <div id="DisplayContainer " className="mt-[100px]">
+      <div id="DisplayContainer " className="mt-[20px]">
+        <h1 className="text-xl font-bold ">Today </h1>
+        <h1 className="mt-4 text-lg font-semibold mb-4">My Projects</h1>
         {taskList.map((task,index) => (
-          <div key={index} className={`${task.isCompleted ? "line-through" : ""} flex`}>{index+1}. Label: {task.label} || task: {task.task} || date: {task.date} || time:{task.time}</div>
+          <div key={index} className={`${task.isCompleted ? "line-through" : ""} flex  py-6 border-b-2 border-t-2 text-lg`}>{index+1}. Label: {task.label} || task: {task.task} || date: {task.date} || time:{task.time} 
+          <button onClick={() => handleDelete(index)}>❌</button></div>
         ))}
           
       </div>
+      </div>
+
     </div>
   );
 }
