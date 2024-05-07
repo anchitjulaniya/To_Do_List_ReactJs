@@ -29,17 +29,19 @@ const Sidebar = ({ toggleModal, setTaskList, taskList,setFilteredTaskList }) => 
   };
 
   const handleCompleteClick = () => {
+    console.log("clicked completed");
     const completedTasks = taskList.filter(item => item.isCompleted);
     setFilteredTaskList(completedTasks)
   };
 
   const handlePendingClick = () => {
     const pendingTasks = taskList.filter(item => !item.isCompleted);
-    setTaskList(pendingTasks);
+    setFilteredTaskList(pendingTasks);
   };
 
   const handleAllTaskClick = () => {
-    setTaskList(taskList);
+    // setTaskList(taskList);
+    setFilteredTaskList(taskList)
   };
 
   useEffect(() => {
@@ -108,7 +110,7 @@ const Sidebar = ({ toggleModal, setTaskList, taskList,setFilteredTaskList }) => 
                 <span
                   className={`${
                     !open && "hidden"
-                  } origin-left duration-200 text-xl font-semibold ${
+                  } origin-left duration-100 text-xl font-semibold transition-all  ${
                     Menu.color ? "text-red-500" : ""
                   }`}
                 >
