@@ -8,12 +8,25 @@ import {
   MdUpcoming,
 } from "react-icons/md";
 
-const Sidebar = ({ toggleModal, setTaskList, taskList,setFilteredTaskList, color }) => {
+const Sidebar = ({
+  toggleModal,
+  filteredTaskList,
+  setTaskList,
+  taskList,
+  setFilteredTaskList,
+  color,
+  setCurrentSec,
+  currentSec
+}) => {
   const [open, setOpen] = useState(true);
   const [menuVisible, setMenuVisible] = useState(false);
 
   const Menus = [
-    { title: "Add Task", icons: <MdOutlineAddCircleOutline />, color: "#DC4A3E" },
+    {
+      title: "Add Task",
+      icons: <MdOutlineAddCircleOutline />,
+      color: "#DC4A3E",
+    },
     { title: "Search", icons: <IoSearch /> },
     { title: "Completed", icons: <GrCompliance /> },
     { title: "Pending", icons: <MdOutlinePendingActions /> },
@@ -22,28 +35,39 @@ const Sidebar = ({ toggleModal, setTaskList, taskList,setFilteredTaskList, color
     // { title: "Fitness", icons: <CiHashtag />, logoColor: "yellow" },
     // { title: "Groceries", icons: <CiHashtag />, logoColor: "red" },
     // { title: "Appointments", icons: <CiHashtag />, logoColor: "blue" },
-    {title : taskList.label , icons:<CiHashtag />, logoColor: "red"}
+    // {title : taskList.label , icons:<CiHashtag />, logoColor: "red"}
   ];
 
+  const currentSectionstyle = {
+    textColor :"text-red-500",
+    backGroundColor:"bg-red-100"
+  }
   const handleAddTaskClick = () => {
     toggleModal();
   };
 
   const handleCompleteClick = () => {
     console.log("clicked completed");
-    const completedTasks = taskList.filter(item => item.isCompleted);
-    setFilteredTaskList(completedTasks)
+    setCurrentSec("complete")
+    const completedTasks = taskList.filter((item) => item.isCompleted);
+    setFilteredTaskList(completedTasks);
   };
 
   const handlePendingClick = () => {
-    const pendingTasks = taskList.filter(item => !item.isCompleted);
+    // console.log();
+    setCurrentSec("pending")
+    const pendingTasks = taskList.filter((item) => !item.isCompleted);
     setFilteredTaskList(pendingTasks);
   };
 
   const handleAllTaskClick = () => {
-    // setTaskList(taskList);
-    setFilteredTaskList(taskList)
+    setCurrentSec("All Task")
+    setFilteredTaskList(taskList);
   };
+
+  // useEffect(() => {
+  //   handleAllTaskClick();
+  // },[])
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -52,6 +76,10 @@ const Sidebar = ({ toggleModal, setTaskList, taskList,setFilteredTaskList, color
 
     return () => clearTimeout(timeout);
   }, [open]);
+
+  const handleLableSort = (idx) => {
+    console.log("label clicked");
+  }
 
   return (
     <div className="flex">
@@ -86,7 +114,7 @@ const Sidebar = ({ toggleModal, setTaskList, taskList,setFilteredTaskList, color
             Menus.map((Menu, index) => (
               <li
                 key={index}
-                className={`flex  rounded-md p-2 cursor-pointer hover:bg-red-100 text-black text-sm items-center gap-x-2 font-semibold hover:text-red-500
+                className={`flex  rounded-md p-2 cursor-pointer hover:bg-red-100 text-black text-sm items-center gap-x-2 font-semibold hover:text-red-500 
                 ${Menu.gap ? "mt-9" : ""} ${index === 0 && "bg-light-white"}`}
                 onClick={() => {
                   if (Menu.title === "Add Task") {
@@ -119,6 +147,20 @@ const Sidebar = ({ toggleModal, setTaskList, taskList,setFilteredTaskList, color
                 </span>
               </li>
             ))}
+          {menuVisible && taskList.map((task, idx) => (
+            <li
+              key={idx}
+              className="flex  rounded-md p-2 cursor-pointer hover:bg-red-100 text-black text-sm items-center gap-x-2 font-semibold hover:text-red-500"
+            >
+              
+              <CiHashtag className="text-xl font-extrabold text-red-500"/>{" "}
+              <span className={`${
+                    !open && "hidden"
+                  } origin-left duration-100 text-xl font-semibold transition-all`}
+                  onClick={() => handleLableSort(idx)}
+                  >{task.label} </span>
+            </li>
+          ))}
         </ul>
       </div>
     </div>
