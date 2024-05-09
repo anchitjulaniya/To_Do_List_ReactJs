@@ -17,6 +17,7 @@ function App() {
 
   const createTask = () => {
     if (taskValue.trim() !== "") {
+      
       setTaskList([
         ...taskList,
         {
@@ -27,6 +28,8 @@ function App() {
           date: new Date().toLocaleDateString(),
         },
       ]);
+
+      setFilteredTaskList(taskList)
     }
     toggleModal();
     setLabelValue("");
@@ -54,6 +57,8 @@ function App() {
     localStorage.setItem("taskList", JSON.stringify(taskList));
   }, [taskList]);
 
+
+  
   const handleDelete = (index) => {
     let filteredArr = taskList.filter((item, idx) => {
       return idx !== index;
@@ -79,6 +84,7 @@ function App() {
     <div className="flex">
       <Sidebar toggleModal={toggleModal} setTaskList={setTaskList}
       taskList={taskList}
+      setFilteredTaskList={setFilteredTaskList}
       />{" "}
       <div className="p-10">
         <Modal
@@ -89,7 +95,6 @@ function App() {
           labelInputValue={labelInputValue}
           labelValue={labelValue}
           taskValue={taskValue}
-          setFilteredTaskList={setFilteredTaskList}
         />
         {/* <button
           className="addnew-button bg-blue-500 text-white rounded-md "
@@ -101,7 +106,7 @@ function App() {
         <div id="DisplayContainer " className="mt-[20px]">
           <h1 className="text-xl font-bold ">Today </h1>
           <h1 className="mt-4 text-lg font-semibold mb-4">My Projects</h1>
-          {taskList.map((task, index) => (
+          {filteredTaskList.map((task, index) => (
             <div
               key={index}
               className={`
