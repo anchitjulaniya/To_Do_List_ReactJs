@@ -112,7 +112,7 @@ function App() {
         setCurrentSec={setCurrentSec}
         currentSec={currentSec}
       />{" "}
-      <div className="p-10">
+      <div className="p-10 w-full">
         <Modal
           showModal={showModal}
           toggleModal={toggleModal}
@@ -122,14 +122,8 @@ function App() {
           labelValue={labelValue}
           taskValue={taskValue}
         />
-        {/* <button
-          className="addnew-button bg-blue-500 text-white rounded-md "
-          onClick={toggleModal}
-        >
-          New task
-        </button> */}
-
-        <div className="w-full h-[80vh] flex justify-center">
+        
+        <div className="w-[100%] h-[80vh] flex justify-center">
           <div id="DisplayContainer " className="mt-[20px]">
             <h1 className="text-xl font-bold py-6 border-b-2 w-full duration-1000">
               {currentSec}
@@ -139,15 +133,22 @@ function App() {
               (task, index) => (
                 <div
                   key={index}
-                  className="flex flex-col relative py-6 w-[700px] border-b-2 text-lg"
+                  className="flex flex-col relative gap-4 py-3 w-[700px] border-b-2 text-lg"
                 >
-                  <div className="text-black text-xl font-semibold w-full">
-                    <span className="bg-yellow-200">{task.task}</span>
+                  <div className="text-black flex items-center gap-4 text-xl  w-full">
+                  
+                  <div className="dark:bg-black/10">
+                    <label className="text-white">
+                      <input onChange={()=>{handleComplete(index)}} checked={task.isCompleted} className="dark:border-white-400/20 dark:scale-100 transition-all duration-500 ease-in-out dark:hover:scale-110 dark:checked:scale-100 w-6 h-6 " type="checkbox" />
+                    </label>
                   </div>
-                  <div className="flex justify-between">
-                    <p className="text-green-500 text-lg">{task.date}</p>
-                    <p>{task.time}</p>
-                    <p className="text-purple-500">{task.label}</p>
+
+                    <span className="">{task.task}</span>
+                  </div>
+                  <div className="flex justify-between text-[14px]">
+                    <p className="text-green-500 w-[200px]">{task.date}</p>
+                    <p className="w-[200px]">{task.time}</p>
+                    <p className="text-purple-500 w-[250px] text-end text-[20px]">{task.label} <span className={`text-green-500`}>&#35;</span></p>
                   </div>
                   <button
                     className="absolute top-2 right-2 hover:bg-red-200 rounded-md"
@@ -155,12 +156,7 @@ function App() {
                   >
                     ❌
                   </button>
-                  <button
-                    onClick={() => handleComplete(index)}
-                    className="px-3 mx-1 bg-black text-white"
-                  >
-                    Done
-                  </button>
+                  
                   {/* <input
         type="checkbox"
         checked={task.isCompleted}

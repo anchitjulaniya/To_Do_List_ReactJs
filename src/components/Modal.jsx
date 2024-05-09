@@ -10,7 +10,7 @@ const Modal = ({showModal, toggleModal, createTask, taskInputValue, labelInputVa
       }`}
     >
       <div className="w-[440px] h-[277px] rounded-lg p-8 bg-white text-black">
-        <h1 className='mb-2 text-blue-600'>New Task</h1>
+        <h1 className='mb-2 font-semibold text-blue-600'>New Task</h1>
         
         <div className="w-full px-3 mb-6 flex gap-3 items-center">
             <label className="w-[60px] block tracking-wide text-gray-700 text-lg font-bold mb-2" >
@@ -28,8 +28,27 @@ const Modal = ({showModal, toggleModal, createTask, taskInputValue, labelInputVa
         </div>
 
         <div className='flex justify-between px-10'>
-            <button className='px-4 border border-black rounded-md' onClick={toggleModal}>Cancel</button>
-            <button onClick={createTask} className='px-4 border border-black rounded-md'>Create</button>
+            <button className='px-4  text-white font-bold bg-red-500 rounded-md' onClick={toggleModal}>Cancel</button>
+            {/* <button onClick={createTask} className='px-4  text-white font-bold bg-green-500  rounded-md'>Create</button> */}
+            <button onClick={createTask} 
+                className="overflow-hidden relative w-32 p-2 h-12 bg-black text-white border-none rounded-md text-xl font-bold cursor-pointer relative z-10 group"
+              >
+                Add Task
+                <span
+                  className="absolute w-36 h-32 -top-8 -left-2 bg-green-200 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-500 duration-1000 origin-bottom"
+                ></span>
+                <span
+                  className="absolute w-36 h-32 -top-8 -left-2 bg-green-400 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-700 duration-700 origin-bottom"
+                ></span>
+                <span
+                  className="absolute w-36 h-32 -top-8 -left-2 bg-green-600 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-1000 duration-500 origin-bottom"
+                ></span>
+                <span
+                  className="group-hover:opacity-100 group-hover:duration-1000 duration-100 opacity-0 absolute top-2.5 left-6 z-10"
+                  >New Task</span
+                >
+              </button>
+
         </div>
         
 
