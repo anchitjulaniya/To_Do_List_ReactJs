@@ -8,7 +8,7 @@ import {
   MdUpcoming,
 } from "react-icons/md";
 
-const Sidebar = ({ toggleModal, setTaskList, taskList,setFilteredTaskList }) => {
+const Sidebar = ({ toggleModal, setTaskList, taskList,setFilteredTaskList, color }) => {
   const [open, setOpen] = useState(true);
   const [menuVisible, setMenuVisible] = useState(false);
 
@@ -18,10 +18,11 @@ const Sidebar = ({ toggleModal, setTaskList, taskList,setFilteredTaskList }) => 
     { title: "Completed", icons: <GrCompliance /> },
     { title: "Pending", icons: <MdOutlinePendingActions /> },
     { title: "All Task", icons: <MdUpcoming /> },
-    { title: "My Projects", icons: "", gap: true, color: "red" },
-    { title: "Fitness", icons: <CiHashtag />, logoColor: "yellow" },
-    { title: "Groceries", icons: <CiHashtag />, logoColor: "red" },
-    { title: "Appointments", icons: <CiHashtag />, logoColor: "blue" },
+    { title: "Label", icons: "", gap: true, color: "blue" },
+    // { title: "Fitness", icons: <CiHashtag />, logoColor: "yellow" },
+    // { title: "Groceries", icons: <CiHashtag />, logoColor: "red" },
+    // { title: "Appointments", icons: <CiHashtag />, logoColor: "blue" },
+    {title : taskList.label , icons:<CiHashtag />, logoColor: "red"}
   ];
 
   const handleAddTaskClick = () => {

@@ -12,8 +12,9 @@ function App() {
 
   const [showModal, setModal] = useState(false);
 
-  const[filteredTaskList,setFilteredTaskList] = useState([])
+  const [filteredTaskList,setFilteredTaskList] = useState([])
 
+  const color = ["#DC4A3E", "#7d2ae8", "#2a9d8f", "#e9c46a", "#f4a261", "#e76f51", "#264653", "#f4a261", "#e76f51", "#264653"]; //length - 10
 
   const createTask = () => {
     if (taskValue.trim() !== "") {
@@ -85,9 +86,12 @@ function App() {
       <Sidebar toggleModal={toggleModal} setTaskList={setTaskList}
       taskList={taskList}
       setFilteredTaskList={setFilteredTaskList}
+      color = {color} 
       />{" "}
       <div className="p-10">
         <Modal
+
+          
           showModal={showModal}
           toggleModal={toggleModal}
           createTask={createTask}
@@ -103,26 +107,37 @@ function App() {
           New task
         </button> */}
 
-        <div id="DisplayContainer " className="mt-[20px]">
-          <h1 className="text-xl font-bold ">Today </h1>
-          <h1 className="mt-4 text-lg font-semibold mb-4">My Projects</h1>
-          {filteredTaskList.map((task, index) => (
+<div className="w-full h-[80vh] flex justify-center">
+          <div id="DisplayContainer " className="mt-[20px]">
+          <h1 className="text-xl font-bold py-6 border-b-2 w-full duration-1000">All Task </h1>
+          {taskList.map((task, index) => (
             <div
               key={index}
               className={`
-              flex  py-6 border-b-2 border-t-2 text-lg`}
+              flex flex-col relative py-6 w-[700px] border-b-2  text-lg`}
             >
-              {index + 1}. Label: {task.label} || task: {task.task} || date:{" "}
-              {task.date} || time:{task.time}
-              <button onClick={() => handleDelete(index)}>❌</button>
+              <div className="text-black text-xl font-semibold w-full "><span className="bg-yellow-200">{task.task}</span></div>
+              <div className="flex justify-between">
+                <p className="text-green-500 text-lg">{task.date}</p>
+                <p>{task.time}</p>
+                <p className="text-purple-500">{task.label}</p>
+              </div>  
+              <button className="absolute top-2 right-2 hover:bg-red-200 rounded-md" onClick={() => handleDelete(index)}>❌</button>
               <button
                 onClick={() => handleComplete(index)}
                 className="px-3 mx-1 bg-black text-white"
               >
                 Done
               </button>
+              {/* <input
+                type="checkbox"
+                checked={task.isCompleted}
+                onChange={() => handleComplete(index)}
+                className="mx-1"
+                /> */}
             </div>
           ))}
+        </div>
         </div>
       </div>
     </div>
