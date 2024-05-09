@@ -110,7 +110,7 @@ function App() {
 <div className="w-full h-[80vh] flex justify-center">
           <div id="DisplayContainer " className="mt-[20px]">
           <h1 className="text-xl font-bold py-6 border-b-2 w-full duration-1000">All Task </h1>
-          {taskList.map((task, index) => (
+          {filteredTaskList.map((task, index) => (
             <div
               key={index}
               className={`
