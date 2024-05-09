@@ -12,13 +12,27 @@ function App() {
 
   const [showModal, setModal] = useState(false);
 
-  const [filteredTaskList,setFilteredTaskList] = useState([])
+  const [filteredTaskList, setFilteredTaskList] = useState([]);
 
-  const color = ["#DC4A3E", "#7d2ae8", "#2a9d8f", "#e9c46a", "#f4a261", "#e76f51", "#264653", "#f4a261", "#e76f51", "#264653"]; //length - 10
+  const [currentSec, setCurrentSec] = useState("All Task");
+
+  console.log(currentSec);
+
+  const color = [
+    "#DC4A3E",
+    "#7d2ae8",
+    "#2a9d8f",
+    "#e9c46a",
+    "#f4a261",
+    "#e76f51",
+    "#264653",
+    "#f4a261",
+    "#e76f51",
+    "#264653",
+  ]; //length - 10
 
   const createTask = () => {
     if (taskValue.trim() !== "") {
-      
       setTaskList([
         ...taskList,
         {
@@ -30,7 +44,7 @@ function App() {
         },
       ]);
 
-      setFilteredTaskList(taskList)
+      setFilteredTaskList(taskList);
     }
     toggleModal();
     setLabelValue("");
@@ -52,14 +66,18 @@ function App() {
         ? JSON.parse(localStorage.getItem("taskList"))
         : []
     );
+
+    // setFilteredTaskList(
+    //   localStorage.getItem("taskList")
+    //     ? JSON.parse(localStorage.getItem("taskList"))
+    //     : []
+    // );
   }, []);
 
   useEffect(() => {
     localStorage.setItem("taskList", JSON.stringify(taskList));
   }, [taskList]);
 
-
-  
   const handleDelete = (index) => {
     let filteredArr = taskList.filter((item, idx) => {
       return idx !== index;
@@ -81,17 +99,21 @@ function App() {
     setModal(!showModal);
   };
 
+  // if(currentSec === "All Task") ?
   return (
     <div className="flex">
-      <Sidebar toggleModal={toggleModal} setTaskList={setTaskList}
-      taskList={taskList}
-      setFilteredTaskList={setFilteredTaskList}
-      color = {color} 
+      <Sidebar
+        toggleModal={toggleModal}
+        setTaskList={setTaskList}
+        taskList={taskList}
+        setFilteredTaskList={setFilteredTaskList}
+        filteredTaskList={filteredTaskList}
+        color={color}
+        setCurrentSec={setCurrentSec}
+        currentSec={currentSec}
       />{" "}
       <div className="p-10">
         <Modal
-
-          
           showModal={showModal}
           toggleModal={toggleModal}
           createTask={createTask}
@@ -107,37 +129,48 @@ function App() {
           New task
         </button> */}
 
-<div className="w-full h-[80vh] flex justify-center">
+        <div className="w-full h-[80vh] flex justify-center">
           <div id="DisplayContainer " className="mt-[20px]">
-          <h1 className="text-xl font-bold py-6 border-b-2 w-full duration-1000">All Task </h1>
-          {filteredTaskList.map((task, index) => (
-            <div
-              key={index}
-              className={`
-              flex flex-col relative py-6 w-[700px] border-b-2  text-lg`}
-            >
-              <div className="text-black text-xl font-semibold w-full "><span className="bg-yellow-200">{task.task}</span></div>
-              <div className="flex justify-between">
-                <p className="text-green-500 text-lg">{task.date}</p>
-                <p>{task.time}</p>
-                <p className="text-purple-500">{task.label}</p>
-              </div>  
-              <button className="absolute top-2 right-2 hover:bg-red-200 rounded-md" onClick={() => handleDelete(index)}>❌</button>
-              <button
-                onClick={() => handleComplete(index)}
-                className="px-3 mx-1 bg-black text-white"
-              >
-                Done
-              </button>
-              {/* <input
-                type="checkbox"
-                checked={task.isCompleted}
-                onChange={() => handleComplete(index)}
-                className="mx-1"
-                /> */}
-            </div>
-          ))}
-        </div>
+            <h1 className="text-xl font-bold py-6 border-b-2 w-full duration-1000">
+              {currentSec}
+            </h1>
+
+            {(currentSec === "All Task" ? taskList : filteredTaskList).map(
+              (task, index) => (
+                <div
+                  key={index}
+                  className="flex flex-col relative py-6 w-[700px] border-b-2 text-lg"
+                >
+                  <div className="text-black text-xl font-semibold w-full">
+                    <span className="bg-yellow-200">{task.task}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <p className="text-green-500 text-lg">{task.date}</p>
+                    <p>{task.time}</p>
+                    <p className="text-purple-500">{task.label}</p>
+                  </div>
+                  <button
+                    className="absolute top-2 right-2 hover:bg-red-200 rounded-md"
+                    onClick={() => handleDelete(index)}
+                  >
+                    ❌
+                  </button>
+                  <button
+                    onClick={() => handleComplete(index)}
+                    className="px-3 mx-1 bg-black text-white"
+                  >
+                    Done
+                  </button>
+                  {/* <input
+        type="checkbox"
+        checked={task.isCompleted}
+        onChange={() => handleComplete(index)}
+        className="mx-1"
+      /> */}
+                </div>
+              )
+            )}
+          </div>
         </div>
       </div>
     </div>
