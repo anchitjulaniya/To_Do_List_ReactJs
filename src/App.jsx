@@ -112,7 +112,7 @@ function App() {
         setCurrentSec={setCurrentSec}
         currentSec={currentSec}
       />{" "}
-      <div className="p-10 w-full">
+      <div className="p-10 fixed right-0 top-0 overflow-y-auto w-[80%]">
         <Modal
           showModal={showModal}
           toggleModal={toggleModal}

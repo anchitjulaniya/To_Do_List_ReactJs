@@ -82,7 +82,7 @@ const Sidebar = ({
   }
 
   return (
-    <div className="flex fixed  left-0">
+    <div style={{ }} className="flex fixed overflow-y-auto left-0">
       <div
         className={`${
           open ? "w-72" : "w-20"
